@@ -353,41 +353,6 @@
             50% { opacity: 0; }
         }
         
-        .glitch {
-            position: relative;
-        }
-        
-        .glitch::before, .glitch::after {
-            content: attr(data-text);
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            opacity: 0.8;
-        }
-        
-        .glitch::before {
-            color: #0ff;
-            z-index: -1;
-            animation: glitch-effect 3s infinite;
-        }
-        
-        .glitch::after {
-            color: #f0f;
-            z-index: -2;
-            animation: glitch-effect 2s infinite reverse;
-        }
-        
-        @keyframes glitch-effect {
-            0% { transform: translate(0); }
-            20% { transform: translate(-3px, 3px); }
-            40% { transform: translate(-3px, -3px); }
-            60% { transform: translate(3px, 3px); }
-            80% { transform: translate(3px, -3px); }
-            100% { transform: translate(0); }
-        }
-        
         .timeline {
             position: relative;
             padding-left: 30px;
@@ -578,7 +543,7 @@
             </div>
             
             <div class="output" style="animation-delay: 1.2s;">
-                <h1 class="glitch" data-text="Смирнов Михаил Борисович">Смирнов Михаил Борисович</h1>
+                <h1>Смирнов Михаил Борисович</h1>
                 <p>20 лет | Разработчик Python/C/JS</p>
                 
                 <div class="contact-grid">
