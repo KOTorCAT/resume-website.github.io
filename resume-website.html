@@ -1,0 +1,900 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Смирнов Михаил | Разработчик Python/C/JS</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;900&family=Roboto+Mono:wght@300;400;700&display=swap');
+        
+        :root {
+            --primary: #6c5ce7;
+            --secondary: #a29bfe;
+            --dark: #2d3436;
+            --light: #f5f6fa;
+            --accent: #fd79a8;
+            --success: #00b894;
+            --terminal-bg: rgba(45, 52, 54, 0.95);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--dark);
+            color: var(--light);
+            overflow-x: hidden;
+            line-height: 1.6;
+            background-image: 
+                radial-gradient(circle at 25% 25%, rgba(108, 92, 231, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 75% 75%, rgba(253, 121, 168, 0.1) 0%, transparent 50%);
+        }
+        
+        .terminal {
+            font-family: 'Roboto Mono', monospace;
+            position: relative;
+            max-width: 1000px;
+            margin: 50px auto;
+            border-radius: 10px;
+            box-shadow: 
+                0 20px 50px rgba(0, 0, 0, 0.5),
+                0 0 0 1px rgba(255, 255, 255, 0.05);
+            overflow: hidden;
+            opacity: 0;
+            transform: translateY(50px);
+            animation: fadeIn 1s forwards 0.5s;
+            background: var(--terminal-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .terminal-header {
+            height: 30px;
+            background: linear-gradient(90deg, #ff7675, #fd79a8, #a29bfe);
+            display: flex;
+            align-items: center;
+            padding: 0 15px;
+            position: relative;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+        
+        .terminal-btn {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin-right: 8px;
+            background: rgba(255, 255, 255, 0.3);
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+        
+        .terminal-btn:hover {
+            transform: scale(1.2);
+        }
+        
+        .terminal-btn:nth-child(1) { background: #ff5f56; }
+        .terminal-btn:nth-child(2) { background: #ffbd2e; }
+        .terminal-btn:nth-child(3) { background: #27c93f; }
+        
+        .terminal-title {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 12px;
+            color: white;
+            font-weight: 700;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+        }
+        
+        .terminal-body {
+            padding: 30px;
+            min-height: 100vh;
+        }
+        
+        .command {
+            display: flex;
+            margin-bottom: 20px;
+            animation: type 0.5s steps(40) forwards;
+            opacity: 0;
+        }
+        
+        @keyframes type {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .prompt {
+            color: var(--accent);
+            margin-right: 10px;
+            user-select: none;
+            font-weight: bold;
+        }
+        
+        .cmd {
+            color: var(--secondary);
+            flex-grow: 1;
+            text-shadow: 0 0 5px rgba(162, 155, 254, 0.3);
+        }
+        
+        .output {
+            margin-bottom: 30px;
+            padding-left: 20px;
+            border-left: 2px solid var(--primary);
+            animation: slideIn 0.5s forwards;
+            opacity: 0;
+            transform: translateX(-20px);
+        }
+        
+        @keyframes slideIn {
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            color: var(--primary);
+            background: linear-gradient(90deg, #a29bfe, #fd79a8);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            display: inline-block;
+            position: relative;
+        }
+        
+        h1::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, var(--primary), transparent);
+        }
+        
+        h2 {
+            font-size: 1.5rem;
+            margin: 25px 0 15px;
+            color: var(--secondary);
+            position: relative;
+            display: inline-block;
+        }
+        
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, var(--primary), transparent);
+        }
+        
+        p {
+            margin-bottom: 15px;
+        }
+        
+        a {
+            color: var(--accent);
+            text-decoration: none;
+            transition: all 0.3s;
+            position: relative;
+        }
+        
+        a::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--accent);
+            transition: width 0.3s;
+        }
+        
+        a:hover::after {
+            width: 100%;
+        }
+        
+        ul {
+            list-style-type: none;
+            margin: 20px 0;
+        }
+        
+        li {
+            margin-bottom: 10px;
+            position: relative;
+            padding-left: 25px;
+        }
+        
+        li::before {
+            content: '▹';
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+        }
+        
+        .tag {
+            display: inline-block;
+            background: rgba(108, 92, 231, 0.2);
+            color: var(--secondary);
+            padding: 3px 8px;
+            border-radius: 4px;
+            margin: 2px;
+            font-size: 0.8rem;
+            font-family: 'Roboto Mono', monospace;
+            transition: all 0.3s;
+            cursor: default;
+        }
+        
+        .tag:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 2px 5px rgba(108, 92, 231, 0.3);
+        }
+        
+        .project {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            transition: all 0.3s;
+            border-left: 3px solid transparent;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .project::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(108, 92, 231, 0.1), transparent);
+            z-index: -1;
+        }
+        
+        .project:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            border-left: 3px solid var(--accent);
+            background: rgba(255, 255, 255, 0.08);
+        }
+        
+        .project h3 {
+            color: var(--primary);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .project h3::before {
+            content: '>';
+            margin-right: 10px;
+            color: var(--accent);
+        }
+        
+        .project-link {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 5px 10px;
+            background: rgba(108, 92, 231, 0.2);
+            border-radius: 4px;
+            font-size: 0.8rem;
+            transition: all 0.3s;
+        }
+        
+        .project-link:hover {
+            background: var(--primary);
+            color: white;
+        }
+        
+        .contact-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin: 30px 0;
+        }
+        
+        .contact-btn {
+            display: flex;
+            align-items: center;
+            padding: 10px 20px;
+            background: rgba(108, 92, 231, 0.1);
+            border-radius: 30px;
+            transition: all 0.3s;
+            border: 1px solid var(--primary);
+        }
+        
+        .contact-btn:hover {
+            background: var(--primary);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(108, 92, 231, 0.4);
+        }
+        
+        .contact-btn i {
+            margin-right: 10px;
+        }
+        
+        .skills-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 20px 0;
+        }
+        
+        .cursor {
+            display: inline-block;
+            width: 10px;
+            height: 20px;
+            background: var(--accent);
+            margin-left: 5px;
+            animation: blink 1s infinite;
+            vertical-align: middle;
+        }
+        
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+        
+        .glitch {
+            position: relative;
+        }
+        
+        .glitch::before, .glitch::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.8;
+        }
+        
+        .glitch::before {
+            color: #0ff;
+            z-index: -1;
+            animation: glitch-effect 3s infinite;
+        }
+        
+        .glitch::after {
+            color: #f0f;
+            z-index: -2;
+            animation: glitch-effect 2s infinite reverse;
+        }
+        
+        @keyframes glitch-effect {
+            0% { transform: translate(0); }
+            20% { transform: translate(-3px, 3px); }
+            40% { transform: translate(-3px, -3px); }
+            60% { transform: translate(3px, 3px); }
+            80% { transform: translate(3px, -3px); }
+            100% { transform: translate(0); }
+        }
+        
+        .timeline {
+            position: relative;
+            padding-left: 30px;
+            margin: 30px 0;
+        }
+        
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 5px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(to bottom, var(--primary), var(--accent));
+        }
+        
+        .timeline-item {
+            position: relative;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -30px;
+            top: 5px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--accent);
+            border: 2px solid var(--primary);
+            box-shadow: 0 0 5px rgba(253, 121, 168, 0.5);
+        }
+        
+        .timeline-date {
+            color: var(--secondary);
+            font-size: 0.9rem;
+            margin-bottom: 5px;
+        }
+        
+        .floating {
+            animation: floating 3s ease-in-out infinite;
+        }
+        
+        @keyframes floating {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
+        
+        .particle {
+            position: absolute;
+            background: rgba(108, 92, 231, 0.5);
+            border-radius: 50%;
+            pointer-events: none;
+            filter: blur(1px);
+        }
+        
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 30px 0;
+        }
+        
+        .contact-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            padding: 20px;
+            transition: all 0.3s;
+            border-top: 3px solid transparent;
+        }
+        
+        .contact-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(108, 92, 231, 0.2);
+            border-top: 3px solid var(--accent);
+            background: rgba(255, 255, 255, 0.08);
+        }
+        
+        .contact-card h3 {
+            color: var(--secondary);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .contact-card h3::before {
+            content: '→';
+            margin-right: 10px;
+            color: var(--accent);
+        }
+        
+        .contact-card a {
+            color: var(--light);
+            word-break: break-all;
+        }
+        
+        .contact-card a:hover {
+            color: var(--accent);
+        }
+        
+        .github-corner {
+            position: fixed;
+            top: 0;
+            right: 0;
+            z-index: 100;
+            opacity: 0.8;
+            transition: all 0.3s;
+        }
+        
+        .github-corner:hover {
+            opacity: 1;
+            transform: scale(1.1);
+        }
+        
+        .github-corner svg {
+            fill: var(--primary);
+            color: var(--dark);
+            width: 80px;
+            height: 80px;
+        }
+        
+        @media (max-width: 768px) {
+            .terminal {
+                margin: 20px;
+                border-radius: 5px;
+            }
+            
+            .terminal-body {
+                padding: 20px;
+            }
+            
+            h1 {
+                font-size: 1.8rem;
+            }
+            
+            h2 {
+                font-size: 1.3rem;
+            }
+            
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .github-corner svg {
+                width: 60px;
+                height: 60px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="particles" id="particles"></div>
+    
+    <a href="https://github.com/KOTorCAT/projects" class="github-corner" aria-label="View source on GitHub" target="_blank">
+        <svg viewBox="0 0 250 250" aria-hidden="true">
+            <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+            <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+            <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path>
+        </svg>
+    </a>
+    
+    <div class="terminal">
+        <div class="terminal-header">
+            <div class="terminal-btn"></div>
+            <div class="terminal-btn"></div>
+            <div class="terminal-btn"></div>
+            <div class="terminal-title">mikhail_smirnov_resume</div>
+        </div>
+        
+        <div class="terminal-body">
+            <div class="command" style="animation-delay: 0.7s;">
+                <span class="prompt">$</span>
+                <span class="cmd">cat resume.txt</span>
+                <span class="cursor"></span>
+            </div>
+            
+            <div class="output" style="animation-delay: 1.2s;">
+                <h1 class="glitch" data-text="Смирнов Михаил Борисович">Смирнов Михаил Борисович</h1>
+                <p>20 лет | Разработчик Python/C/JS</p>
+                
+                <div class="contact-grid">
+                    <div class="contact-card">
+                        <h3>GitHub</h3>
+                        <a href="https://github.com/KOTorCAT/projects" target="_blank">github.com/KOTorCAT/projects</a>
+                    </div>
+                    
+                    <div class="contact-card">
+                        <h3>Telegram</h3>
+                        <a href="https://t.me/man_who_eats_cake" target="_blank">@man_who_eats_cake</a>
+                    </div>
+                    
+                    <div class="contact-card">
+                        <h3>Email</h3>
+                        <a href="mailto:mikhail.b.smirnov@gmail.com">mikhail.b.smirnov@gmail.com</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="command" style="animation-delay: 1.7s;">
+                <span class="prompt">$</span>
+                <span class="cmd">head -n 5 goal.txt</span>
+                <span class="cursor"></span>
+            </div>
+            
+            <div class="output" style="animation-delay: 2.2s;">
+                <h2>Цель</h2>
+                <p>Студент-разработчик, углубленно изучающий Python, JS и C. Имею опыт создания desktop-приложений, веб-решений и работы с алгоритмами. Ищу стажировку/работу, где смогу расти как профессионал: участвовать в реальных проектах, перенимать опыт коллег и вносить свой вклад в разработку.</p>
+            </div>
+            
+            <div class="command" style="animation-delay: 2.7s;">
+                <span class="prompt">$</span>
+                <span class="cmd">ls -la education/</span>
+                <span class="cursor"></span>
+            </div>
+            
+            <div class="output" style="animation-delay: 3.2s;">
+                <h2>Образование</h2>
+                
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-date">2023 – 2027</div>
+                        <h3>РГПУ им. Герцена</h3>
+                        <p>Студент 3 курса бакалавриата</p>
+                        <p>Направление: Информатика и вычислительная техника</p>
+                        <p>Профиль: Технологии разработки программного обеспечения и обработки больших данных</p>
+                        <p>Ключевые области: Алгоритмы, структуры данных, проектирование ПО, Big Data.</p>
+                    </div>
+                    
+                    <div class="timeline-item">
+                        <div class="timeline-date">2024 – 2026</div>
+                        <h3>Школа 21 (Сбер)</h3>
+                        <p>Интенсивная практическая программа обучения программированию (конкурсный отбор)</p>
+                        <p>Формат: Самостоятельное решение задач, командная разработка проектов (peer-to-peer обучение).</p>
+                        
+                        <ul>
+                            <li>Вступительный интенсив (28 дней): Ежедневное решение алгоритмических задач на C</li>
+                            <li>Разработка проектов: Практический опыт создания приложений на C и Python</li>
+                            <li>Решение комплексных задач: Анализ требований, проектирование архитектуры</li>
+                            <li>Командная работа (как разработчик и тимлид)</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="command" style="animation-delay: 3.7s;">
+                <span class="prompt">$</span>
+                <span class="cmd">grep -r "skills" ./</span>
+                <span class="cursor"></span>
+            </div>
+            
+            <div class="output" style="animation-delay: 4.2s;">
+                <h2>Навыки</h2>
+                
+                <h3>Языки программирования & Технологии:</h3>
+                <div class="skills-container">
+                    <span class="tag">Python</span>
+                    <span class="tag">C</span>
+                    <span class="tag">JavaScript</span>
+                    <span class="tag">HTML</span>
+                    <span class="tag">SQL</span>
+                </div>
+                
+                <h3>Языки:</h3>
+                <div class="skills-container">
+                    <span class="tag">Английский (Intermediate / B1)</span>
+                </div>
+                
+                <h3>Инструменты & Методологии:</h3>
+                <div class="skills-container">
+                    <span class="tag">Командная разработка</span>
+                    <span class="tag">Распределение задач</span>
+                    <span class="tag">Код-ревью</span>
+                    <span class="tag">Проектирование архитектуры</span>
+                    <span class="tag">Git</span>
+                </div>
+                
+                <h3>Прочее:</h3>
+                <div class="skills-container">
+                    <span class="tag">Водительское удостоверение категории B</span>
+                </div>
+            </div>
+            
+            <div class="command" style="animation-delay: 4.7s;">
+                <span class="prompt">$</span>
+                <span class="cmd">find ./projects -type f</span>
+                <span class="cursor"></span>
+            </div>
+            
+            <div class="output" style="animation-delay: 5.2s;">
+                <h2>Проектный опыт</h2>
+                
+                <div class="project">
+                    <h3>Сканер чеков с разделением расходов</h3>
+                    <p><strong>Технологии:</strong> Python (бэкенд, логика), JavaScript (фронтенд, взаимодействие), HTML (интерфейс)</p>
+                    <p>Разработали веб-приложение для сканирования товарных чеков. Реализовали функционал автоматического расчета и распределения стоимости покупок между участниками.</p>
+                    <p><strong>Особенности:</strong> Командный проект, работа с данными, алгоритмы распределения</p>
+                    <a href="https://github.com/KOTorCAT/projects/tree/main/check-case" class="project-link" target="_blank">GitHub проекта</a>
+                </div>
+                
+                <div class="project">
+                    <h3>Утилиты Linux: аналог cat и grep</h3>
+                    <p><strong>Технологии:</strong> C</p>
+                    <p>Реализовал базовые функциональности стандартных UNIX-утилит cat (конкатенация и вывод файлов) и grep (поиск по шаблону) на языке C.</p>
+                    <p><strong>Особенности:</strong> Индивидуальный проект, обработка текста</p>
+                    <a href="https://github.com/KOTorCAT/projects/tree/main/CATandGREP" class="project-link" target="_blank">GitHub проекта</a>
+                </div>
+                
+                <div class="project">
+                    <h3>Библиотеки: частичные аналоги string.h и decimal</h3>
+                    <p><strong>Технологии:</strong> C</p>
+                    <p>Разработал набор функций, повторяющих часть функционала стандартных библиотек C (string.h - работа со строками) и (decimal - операции с числами с фиксированной точкой).</p>
+                    <p><strong>Особенности:</strong> Командный проект, глубокое понимание внутренней реализации базовых структур данных и алгоритмов</p>
+                    <div>
+                        <a href="https://github.com/KOTorCAT/projects/tree/main/string" class="project-link" target="_blank">String GitHub</a>
+                        <a href="https://github.com/KOTorCAT/projects/tree/main/decimal" class="project-link" target="_blank">Decimal GitHub</a>
+                    </div>
+                </div>
+                
+                <div class="project">
+                    <h3>Система учета для МЧС</h3>
+                    <p><strong>Технологии:</strong> JavaScript (логика, фронтенд), HTML (интерфейс), SQL (работа с БД, запросы)</p>
+                    <p>Создал учебный веб-портал для управления данными о персонале и технике (аналог внутренней системы учета). Реализовал интерфейсы для просмотра, добавления и (возможно) редактирования записей в базе данных. Реализовал систему регистрации и разный уровень доступа</p>
+                    <a href="https://github.com/KOTorCAT/projects/tree/main/BD_MCHS" class="project-link" target="_blank">GitHub проекта</a>
+                </div>
+                
+                <div class="project">
+                    <h3>Генератор фракталов Жюлиа</h3>
+                    <p><strong>Технологии:</strong> Python (NumPy для вычислений), Qt5, алгоритмы параллельных вычислений</p>
+                    <p>Разработал приложение для визуализации множества Жюлиа с поддержкой:</p>
+                    <ul>
+                        <li>Динамического изменения параметров</li>
+                        <li>Плавного масштабирования и панорамирования</li>
+                    </ul>
+                    <a href="https://github.com/KOTorCAT/projects/tree/main/julia" class="project-link" target="_blank">GitHub проекта</a>
+                </div>
+                
+                <div class="project">
+                    <h3>Приложение для математических расчетов</h3>
+                    <p><strong>Технологии:</strong> Python, Qt5, Numba</p>
+                    <p>Командный проект с реализацией:</p>
+                    <ul>
+                        <li>Решения определенных интегралов</li>
+                        <li>Решение Диф уравнений</li>
+                        <li>Решение элементарных функций</li>
+                        <li>Поиска корней нелинейных уравнений</li>
+                    </ul>
+                    <p>Реализовал графический интерфейс (Qt5) для ввода параметров и вывода результатов. Оптимизация: Ускорение расчетов через Numba.</p>
+                    <a href="https://github.com/KOTorCAT/projects/tree/main/Menu" class="project-link" target="_blank">GitHub проекта</a>
+                </div>
+            </div>
+            
+            <div class="command" style="animation-delay: 5.7s;">
+                <span class="prompt">$</span>
+                <span class="cmd">cat personal_qualities.txt</span>
+                <span class="cursor"></span>
+            </div>
+            
+            <div class="output" style="animation-delay: 6.2s;">
+                <h2>Личные качества</h2>
+                
+                <div class="skills-container">
+                    <span class="tag">Аналитическое мышление</span>
+                    <span class="tag">Оптимизация кода</span>
+                    <span class="tag">Читаемый код</span>
+                    <span class="tag">Командная работа</span>
+                    <span class="tag">Git</span>
+                    <span class="tag">Коммуникабельность</span>
+                    <span class="tag">Непрерывное обучение</span>
+                    <span class="tag">Адаптивность</span>
+                </div>
+                
+                <ul>
+                    <li>Стараюсь разбираться в сложных задачах</li>
+                    <li>Умею находить и исправлять ошибки в коде</li>
+                    <li>Оптимизирую работу программ, чтобы они работали быстрее</li>
+                    <li>Стараюсь писать код, который легко поддерживать</li>
+                    <li>Работаю в команде</li>
+                    <li>Использую Git для совместной работы над кодом</li>
+                    <li>Умею договариваться о решениях, которые устраивают всех</li>
+                    <li>Легко нахожу общий язык с людьми</li>
+                    <li>Постоянно учусь и осваиваю новые технологии</li>
+                </ul>
+            </div>
+            
+            <div class="command" style="animation-delay: 6.7s;">
+                <span class="prompt">$</span>
+                <span class="cmd">echo "Спасибо за просмотр!"</span>
+                <span class="cursor"></span>
+            </div>
+            
+            <div class="output" style="animation-delay: 7.2s; text-align: center; margin-top: 50px;">
+                <h2 class="floating">🚀 Готов к новым интересным задачам :)</h2>
+                <div class="contact-links" style="justify-content: center;">
+                    <a href="https://github.com/KOTorCAT/projects" class="contact-btn" target="_blank">
+                        <i>👨‍💻</i> GitHub
+                    </a>
+                    <a href="https://t.me/man_who_eats_cake" class="contact-btn" target="_blank">
+                        <i>📨</i> Telegram
+                    </a>
+                    <a href="mailto:mikhail.b.smirnov@gmail.com" class="contact-btn">
+                        <i>✉️</i> Email
+                    </a>
+                </div>
+                <p style="margin-top: 30px; color: var(--secondary);">Этот сайт был полностью создан мной 👉👈</p>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Создание частиц фона
+        document.addEventListener('DOMContentLoaded', function() {
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = 50;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                
+                // Случайные параметры частицы
+                const size = Math.random() * 5 + 1;
+                const posX = Math.random() * 100;
+                const posY = Math.random() * 100;
+                const delay = Math.random() * 10;
+                const duration = Math.random() * 20 + 10;
+                const opacity = Math.random() * 0.5 + 0.1;
+                const color = `hsl(${Math.random() * 60 + 240}, 70%, 70%)`;
+                
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                particle.style.left = `${posX}%`;
+                particle.style.top = `${posY}%`;
+                particle.style.opacity = opacity;
+                particle.style.background = color;
+                particle.style.animation = `floating ${duration}s ease-in-out ${delay}s infinite`;
+                
+                particlesContainer.appendChild(particle);
+            }
+            
+            // Анимация появления команд по мере скролла
+            const commands = document.querySelectorAll('.command, .output');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.animationPlayState = 'running';
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            commands.forEach(cmd => {
+                observer.observe(cmd);
+            });
+            
+            // Эффект печатания для первой команды
+            const firstCmd = document.querySelector('.cmd');
+            const text = firstCmd.textContent;
+            firstCmd.textContent = '';
+            
+            let i = 0;
+            const typingEffect = setInterval(() => {
+                if (i < text.length) {
+                    firstCmd.textContent += text.charAt(i);
+                    i++;
+                } else {
+                    clearInterval(typingEffect);
+                }
+            }, 50);
+            
+            // Копирование email при клике
+            const email = document.querySelector('a[href^="mailto:"]');
+            if (email) {
+                email.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    navigator.clipboard.writeText('mikhail.b.smirnov@gmail.com').then(() => {
+                        const originalText = email.textContent;
+                        email.textContent = 'Email скопирован!';
+                        setTimeout(() => {
+                            email.textContent = originalText;
+                            window.location.href = 'mailto:mikhail.b.smirnov@gmail.com';
+                        }, 2000);
+                    });
+                });
+            }
+            
+            // Параллакс эффект для частиц
+            document.addEventListener('mousemove', (e) => {
+                const particles = document.querySelectorAll('.particle');
+                particles.forEach(particle => {
+                    const speed = parseFloat(particle.style.width) * 0.5;
+                    const x = (window.innerWidth - e.pageX * speed) / 100;
+                    const y = (window.innerHeight - e.pageY * speed) / 100;
+                    particle.style.transform = `translate(${x}px, ${y}px)`;
+                });
+            });
+        });
+    </script>
+</body>
+</html>
