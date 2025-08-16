@@ -561,6 +561,11 @@
                         <h3>Email</h3>
                         <a href="mailto:mikhail.b.smirnov@gmail.com">mikhail.b.smirnov@gmail.com</a>
                     </div>
+
+                    <div class="contact-card">
+                        <h3>Резюме-docs</h3>
+                        <a href="https://docs.google.com/document/d/1ao3taoIwhTjBZXFfj0OWTqVvAEjz3ZJSb5zUZsINh10/edit?usp=sharing" target="_blank">Google Docs</a>
+                    </div>
                 </div>
             </div>
             
@@ -586,7 +591,7 @@
                 
                 <div class="timeline">
                     <div class="timeline-item">
-                        <div class="timeline-date">2023 – 2027</div>
+                        <div class="timeline-date">2023 - 2027</div>
                         <h3>РГПУ им. Герцена</h3>
                         <p>Студент 3 курса бакалавриата</p>
                         <p>Направление: Информатика и вычислительная техника</p>
@@ -595,7 +600,7 @@
                     </div>
                     
                     <div class="timeline-item">
-                        <div class="timeline-date">2024 – 2026</div>
+                        <div class="timeline-date">2024 - 2026</div>
                         <h3>Школа 21 (Сбер)</h3>
                         <p>Интенсивная практическая программа обучения программированию (конкурсный отбор)</p>
                         <p>Формат: Самостоятельное решение задач, командная разработка проектов (peer-to-peer обучение).</p>
@@ -775,7 +780,6 @@
     </div>
     
     <script>
-        // Создание частиц фона
         document.addEventListener('DOMContentLoaded', function() {
             const particlesContainer = document.getElementById('particles');
             const particleCount = 50;
@@ -784,7 +788,6 @@
                 const particle = document.createElement('div');
                 particle.classList.add('particle');
                 
-                // Случайные параметры частицы
                 const size = Math.random() * 5 + 1;
                 const posX = Math.random() * 100;
                 const posY = Math.random() * 100;
@@ -804,7 +807,6 @@
                 particlesContainer.appendChild(particle);
             }
             
-            // Анимация появления команд по мере скролла
             const commands = document.querySelectorAll('.command, .output');
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
@@ -818,7 +820,6 @@
                 observer.observe(cmd);
             });
             
-            // Эффект печатания для первой команды
             const firstCmd = document.querySelector('.cmd');
             const text = firstCmd.textContent;
             firstCmd.textContent = '';
@@ -833,7 +834,6 @@
                 }
             }, 50);
             
-            // Копирование email при клике
             const email = document.querySelector('a[href^="mailto:"]');
             if (email) {
                 email.addEventListener('click', function(e) {
@@ -849,7 +849,6 @@
                 });
             }
             
-            // Параллакс эффект для частиц
             document.addEventListener('mousemove', (e) => {
                 const particles = document.querySelectorAll('.particle');
                 particles.forEach(particle => {
