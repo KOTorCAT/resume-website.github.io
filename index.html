@@ -34,6 +34,37 @@
                 radial-gradient(circle at 75% 75%, rgba(253, 121, 168, 0.1) 0%, transparent 50%);
         }
         
+        .language-switcher {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 1000;
+            display: flex;
+            background: rgba(45, 52, 54, 0.8);
+            border-radius: 30px;
+            padding: 5px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .language-btn {
+            padding: 8px 15px;
+            border-radius: 20px;
+            background: transparent;
+            color: var(--light);
+            border: none;
+            cursor: pointer;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 14px;
+            transition: all 0.3s;
+        }
+        
+        .language-btn.active {
+            background: var(--primary);
+            color: white;
+        }
+        
         .terminal {
             font-family: 'Roboto Mono', monospace;
             position: relative;
@@ -513,10 +544,28 @@
                 width: 60px;
                 height: 60px;
             }
+            
+            .language-switcher {
+                top: 10px;
+                left: 10px;
+            }
+        }
+        
+        .lang-ru {
+            display: block;
+        }
+        
+        .lang-en {
+            display: none;
         }
     </style>
 </head>
 <body>
+    <div class="language-switcher">
+        <button class="language-btn active" data-lang="ru">RU</button>
+        <button class="language-btn" data-lang="en">EN</button>
+    </div>
+    
     <div class="particles" id="particles"></div>
     
     <a href="https://github.com/KOTorCAT/projects" class="github-corner" aria-label="View source on GitHub" target="_blank">
@@ -542,7 +591,7 @@
                 <span class="cursor"></span>
             </div>
             
-            <div class="output" style="animation-delay: 1.2s;">
+            <div class="output lang-ru" style="animation-delay: 1.2s;">
                 <h1>Смирнов Михаил Борисович</h1>
                 <p>20 лет | Разработчик Python/C/JS</p>
                 
@@ -569,15 +618,47 @@
                 </div>
             </div>
             
+            <div class="output lang-en" style="animation-delay: 1.2s;">
+                <h1>Mikhail Smirnov</h1>
+                <p>20 years | Python/C/JS Developer</p>
+                
+                <div class="contact-grid">
+                    <div class="contact-card">
+                        <h3>GitHub</h3>
+                        <a href="https://github.com/KOTorCAT/projects" target="_blank">github.com/KOTorCAT/projects</a>
+                    </div>
+                    
+                    <div class="contact-card">
+                        <h3>Telegram</h3>
+                        <a href="https://t.me/man_who_eats_cake" target="_blank">@man_who_eats_cake</a>
+                    </div>
+                    
+                    <div class="contact-card">
+                        <h3>Email</h3>
+                        <a href="mailto:mikhail.b.smirnov@gmail.com">mikhail.b.smirnov@gmail.com</a>
+                    </div>
+
+                    <div class="contact-card">
+                        <h3>Resume-docs</h3>
+                        <a href="https://docs.google.com/document/d/1ao3taoIwhTjBZXFfj0OWTqVvAEjz3ZJSb5zUZsINh10/edit?usp=sharing" target="_blank">Google Docs</a>
+                    </div>
+                </div>
+            </div>
+            
             <div class="command" style="animation-delay: 1.7s;">
                 <span class="prompt">$</span>
                 <span class="cmd">head -n 5 goal.txt</span>
                 <span class="cursor"></span>
             </div>
             
-            <div class="output" style="animation-delay: 2.2s;">
+            <div class="output lang-ru" style="animation-delay: 2.2s;">
                 <h2>Цель</h2>
                 <p>Студент-разработчик, углубленно изучающий Python, JS и C. Имею опыт создания desktop-приложений, веб-решений и работы с алгоритмами. Ищу стажировку/работу, где смогу расти как профессионал: участвовать в реальных проектах, перенимать опыт коллег и вносить свой вклад в разработку.</p>
+            </div>
+            
+            <div class="output lang-en" style="animation-delay: 2.2s;">
+                <h2>Objective</h2>
+                <p>Student developer with in-depth knowledge of Python, JS and C. Experienced in creating desktop applications, web solutions and working with algorithms. Looking for an internship/job where I can grow professionally: participate in real projects, learn from colleagues and contribute to development.</p>
             </div>
             
             <div class="command" style="animation-delay: 2.7s;">
@@ -586,7 +667,7 @@
                 <span class="cursor"></span>
             </div>
             
-            <div class="output" style="animation-delay: 3.2s;">
+            <div class="output lang-ru" style="animation-delay: 3.2s;">
                 <h2>Образование</h2>
                 
                 <div class="timeline">
@@ -615,13 +696,42 @@
                 </div>
             </div>
             
+            <div class="output lang-en" style="animation-delay: 3.2s;">
+                <h2>Education</h2>
+                
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-date">2023 - 2027</div>
+                        <h3>Herzen University</h3>
+                        <p>3rd year Bachelor's student</p>
+                        <p>Field: Computer Science and Engineering</p>
+                        <p>Specialization: Software Development Technologies and Big Data Processing</p>
+                        <p>Key areas: Algorithms, data structures, software design, Big Data.</p>
+                    </div>
+                    
+                    <div class="timeline-item">
+                        <div class="timeline-date">2024 - 2026</div>
+                        <h3>School 21 (Sber)</h3>
+                        <p>Intensive practical programming training program (competitive selection)</p>
+                        <p>Format: Independent problem solving, team project development (peer-to-peer learning).</p>
+                        
+                        <ul>
+                            <li>Introductory intensive (28 days): Daily solving algorithmic problems in C</li>
+                            <li>Project development: Practical experience in creating applications in C and Python</li>
+                            <li>Solving complex problems: Requirements analysis, architecture design</li>
+                            <li>Teamwork (as developer and team lead)</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
             <div class="command" style="animation-delay: 3.7s;">
                 <span class="prompt">$</span>
                 <span class="cmd">grep -r "skills" ./</span>
                 <span class="cursor"></span>
             </div>
             
-            <div class="output" style="animation-delay: 4.2s;">
+            <div class="output lang-ru" style="animation-delay: 4.2s;">
                 <h2>Навыки</h2>
                 
                 <h3>Языки программирования & Технологии:</h3>
@@ -632,6 +742,7 @@
                     <span class="tag">HTML</span>
                     <span class="tag">SQL</span>
                     <span class="tag">CSS</span>
+                    <span class="tag">TypeScript</span>
                 </div>
                 
                 <h3>Языки:</h3>
@@ -654,21 +765,56 @@
                 </div>
             </div>
             
+            <div class="output lang-en" style="animation-delay: 4.2s;">
+                <h2>Skills</h2>
+                
+                <h3>Programming Languages & Technologies:</h3>
+                <div class="skills-container">
+                    <span class="tag">Python</span>
+                    <span class="tag">C</span>
+                    <span class="tag">JavaScript</span>
+                    <span class="tag">HTML</span>
+                    <span class="tag">SQL</span>
+                    <span class="tag">CSS</span>
+                    <span class="tag">TypeScript</span>
+                </div>
+                
+                <h3>Languages:</h3>
+                <div class="skills-container">
+                    <span class="tag">English (Intermediate / B1)</span>
+                </div>
+                
+                <h3>Tools & Methodologies:</h3>
+                <div class="skills-container">
+                    <span class="tag">Team development</span>
+                    <span class="tag">Task distribution</span>
+                    <span class="tag">Code review</span>
+                    <span class="tag">Architecture design</span>
+                    <span class="tag">Git</span>
+                </div>
+                
+                <h3>Other:</h3>
+                <div class="skills-container">
+                    <span class="tag">Driver's license category B</span>
+                </div>
+            </div>
+            
             <div class="command" style="animation-delay: 4.7s;">
                 <span class="prompt">$</span>
                 <span class="cmd">find ./projects -type f</span>
                 <span class="cursor"></span>
             </div>
             
-            <div class="output" style="animation-delay: 5.2s;">
+            <div class="output lang-ru" style="animation-delay: 5.2s;">
                 <h2>Проектный опыт</h2>
                 
                 <div class="project">
                     <h3>Сканер чеков с разделением расходов</h3>
                     <p><strong>Технологии:</strong> Python (бэкенд, логика), JavaScript (фронтенд, взаимодействие), HTML (интерфейс)</p>
-                    <p>Разработали веб-приложение для сканирования товарных чеков. Реализовали функционал автоматического расчета и распределения стоимости покупок между участниками.</p>
+                    <p>Разработали веб-приложение для сканирования товарных чеков. Реализовали функционал автоматического расчета и распределения стоимости покупок между участников.</p>
                     <p><strong>Особенности:</strong> Командный проект, работа с данными, алгоритмы распределения</p>
                     <a href="https://github.com/KOTorCAT/projects/tree/main/check-case" class="project-link" target="_blank">GitHub проекта</a>
+                    <a href="https://github.com/KOTorCAT/projects/blob/main/check-case/%D1%81%D0%B5%D1%80%D1%82%D0%B8%D1%84%D0%B8%D0%BA%D0%B0%D1%82.pdf" class="project-link" target="_blank">Сертификат</a>
                 </div>
                 
                 <div class="project">
@@ -757,13 +903,110 @@
                 </div>
             </div>
             
+            <div class="output lang-en" style="animation-delay: 5.2s;">
+                <h2>Project Experience</h2>
+                
+                <div class="project">
+                    <h3>Receipt Scanner with Expense Sharing</h3>
+                    <p><strong>Technologies:</strong> Python (backend, logic), JavaScript (frontend, interaction), HTML (interface)</p>
+                    <p>Developed a web application for scanning receipts. Implemented functionality for automatic calculation and distribution of purchase costs between participants.</p>
+                    <p><strong>Features:</strong> Team project, data processing, distribution algorithms</p>
+                    <a href="https://github.com/KOTorCAT/projects/tree/main/check-case" class="project-link" target="_blank">Project GitHub</a>
+                </div>
+                
+                <div class="project">
+                    <h3>Linux Utilities: cat and grep analogs</h3>
+                    <p><strong>Technologies:</strong> C</p>
+                    <p>Implemented basic functionality of standard UNIX utilities cat (concatenation and file output) and grep (pattern search) in C language.</p>
+                    <p><strong>Features:</strong> Individual project, text processing</p>
+                    <a href="https://github.com/KOTorCAT/projects/tree/main/CATandGREP" class="project-link" target="_blank">Project GitHub</a>
+                </div>
+                
+                <div class="project">
+                    <h3>Libraries: Partial analogs of string.h and decimal</h3>
+                    <p><strong>Technologies:</strong> C</p>
+                    <p>Developed a set of functions that replicate part of the functionality of standard C libraries (string.h - string operations) and (decimal - fixed-point number operations).</p>
+                    <p><strong>Features:</strong> Team project, deep understanding of internal implementation of basic data structures and algorithms</p>
+                    <div>
+                        <a href="https://github.com/KOTorCAT/projects/tree/main/string" class="project-link" target="_blank">String GitHub</a>
+                        <a href="https://github.com/KOTorCAT/projects/tree/main/decimal" class="project-link" target="_blank">Decimal GitHub</a>
+                    </div>
+                </div>
+                
+                <div class="project">
+                    <h3>Accounting System for Emergency Ministry</h3>
+                    <p><strong>Technologies:</strong> JavaScript (logic, frontend), HTML (interface), SQL (database work, queries)</p>
+                    <p>Created an educational web portal for managing personnel and equipment data (analog of an internal accounting system). Implemented interfaces for viewing, adding and (possibly) editing records in the database. Implemented registration system and different access levels.</p>
+                    <a href="https://github.com/KOTorCAT/projects/tree/main/BD_MCHS" class="project-link" target="_blank">Project GitHub</a>
+                </div>
+                
+                <div class="project">
+                    <h3>Julia Fractal Generator</h3>
+                    <p><strong>Technologies:</strong> Python (NumPy for calculations), Qt5, parallel computing algorithms</p>
+                    <p>Developed an application for visualizing Julia set with support for:</p>
+                    <ul>
+                        <li>Dynamic parameter changes</li>
+                        <li>Smooth zooming and panning</li>
+                    </ul>
+                    <a href="https://github.com/KOTorCAT/projects/tree/main/julia" class="project-link" target="_blank">Project GitHub</a>
+                </div>
+
+                <div class="project">
+                    <h3>Employee Directory</h3>
+                    <p><strong>Technologies:</strong> Python, Flask, SQLite, SQLAlchemy, HTML, CSS</p>
+                    <p>Developed a full-featured web application for managing employee database</p>
+                    <ul>
+                        <li>Implemented CRUD operations, pagination, data import (generating 1000+ records) and export to CSV</li>
+                        <li>Optimized database: created indexes to speed up query execution by 80-90%</li>
+                    </ul>
+                    <a href="https://github.com/KOTorCAT/projects/tree/main/BD_random" class="project-link" target="_blank">Project GitHub</a>
+                </div>
+
+                <div class="project">
+                    <h3>Mathematical Matrix Library in C</h3>
+                    <p><strong>Technologies:</strong> C, Check, Make, Gcov</p>
+                    <p>Implemented a full cycle of matrix operations: arithmetic operations, determinant calculation, transposition, inverse matrix search and matrix of algebraic complements</p>
+                    <ul>
+                        <li>Designed a build system using Makefile (targets: building static library, running tests, generating gcov_report)</li>
+                        <li>Achieved over 80% unit test coverage using Check library</li>
+                        <li>Provided error handling and input validation for all functions</li>
+                    </ul>
+                    <a href="https://github.com/KOTorCAT/projects/tree/main/matrix" class="project-link" target="_blank">Project GitHub</a>
+                </div>
+
+                <div class="project">
+                    <h3>Participant of "AlfaFuture" Case Championship in Sochi | August 2025</h3>
+                    <p><strong>Technologies:</strong> Customer Development, Value Proposition Canvas, Product-Market Fit, Analytics & Research</p>
+                    <p>Development and prototyping of a new financial product for youth audience (14-22 years old), aimed at increasing customer base and engagement for Alfa-Bank.</p>
+                    <ul>
+                        <li>As part of a cross-functional team, developed product strategy and prototype of a financial product for youth audience for Alfa-Bank's task</li>
+                        <li>Gained practical experience in audience needs analysis, product thinking and teamwork in time-constrained conditions</li>
+                    </ul>
+                    <a href="https://github.com/KOTorCAT/projects/blob/main/alfa_case/%D0%94%D0%B8%D0%BF%D0%BB%D0%BE%D0%BC.pdf" class="project-link" target="_blank">Certificate</a>
+                </div>
+                
+                <div class="project">
+                    <h3>Mathematical Calculation Application</h3>
+                    <p><strong>Technologies:</strong> Python, Qt5, Numba</p>
+                    <p>Team project with implementation of:</p>
+                    <ul>
+                        <li>Definite integrals solving</li>
+                        <li>Differential equations solving</li>
+                        <li>Elementary functions solving</li>
+                        <li>Nonlinear equation roots finding</li>
+                    </ul>
+                    <p>Implemented graphical interface (Qt5) for parameter input and result output. Optimization: Calculation acceleration via Numba.</p>
+                    <a href="https://github.com/KOTorCAT/projects/tree/main/Menu" class="project-link" target="_blank">Project GitHub</a>
+                </div>
+            </div>
+            
             <div class="command" style="animation-delay: 5.7s;">
                 <span class="prompt">$</span>
                 <span class="cmd">cat personal_qualities.txt</span>
                 <span class="cursor"></span>
             </div>
             
-            <div class="output" style="animation-delay: 6.2s;">
+            <div class="output lang-ru" style="animation-delay: 6.2s;">
                 <h2>Личные качества</h2>
                 
                 <div class="skills-container">
@@ -785,8 +1028,35 @@
                     <li>Работаю в команде</li>
                     <li>Использую Git для совместной работы над кодом</li>
                     <li>Умею договариваться о решениях, которые устраивают всех</li>
-                    <li>Легко нахожу общий язык с людьми</li>
+                    <li>Легко нахожу общий язык с людьи</li>
                     <li>Постоянно учусь и осваиваю новые технологии</li>
+                </ul>
+            </div>
+            
+            <div class="output lang-en" style="animation-delay: 6.2s;">
+                <h2>Personal Qualities</h2>
+                
+                <div class="skills-container">
+                    <span class="tag">Analytical thinking</span>
+                    <span class="tag">Code optimization</span>
+                    <span class="tag">Readable code</span>
+                    <span class="tag">Teamwork</span>
+                    <span class="tag">Git</span>
+                    <span class="tag">Communication skills</span>
+                    <span class="tag">Continuous learning</span>
+                    <span class="tag">Adaptability</span>
+                </div>
+                
+                <ul>
+                    <li>Strive to understand complex problems</li>
+                    <li>Able to find and fix code errors</li>
+                    <li>Optimize program performance for faster operation</li>
+                    <li>Strive to write maintainable code</li>
+                    <li>Work effectively in teams</li>
+                    <li>Use Git for collaborative code development</li>
+                    <li>Able to negotiate solutions that satisfy all parties</li>
+                    <li>Easily find common ground with people</li>
+                    <li>Continuously learn and master new technologies</li>
                 </ul>
             </div>
             
@@ -796,7 +1066,7 @@
                 <span class="cursor"></span>
             </div>
             
-            <div class="output" style="animation-delay: 7.2s; text-align: center; margin-top: 50px;">
+            <div class="output lang-ru" style="animation-delay: 7.2s; text-align: center; margin-top: 50px;">
                 <h2 class="floating">🚀 Готов к новым интересным задачам :)</h2>
                 <div class="contact-links" style="justify-content: center;">
                     <a href="https://github.com/KOTorCAT/projects" class="contact-btn" target="_blank">
@@ -810,6 +1080,22 @@
                     </a>
                 </div>
                 <p style="margin-top: 30px; color: var(--secondary);">Этот сайт был полностью создан мной 👉👈</p>
+            </div>
+            
+            <div class="output lang-en" style="animation-delay: 7.2s; text-align: center; margin-top: 50px;">
+                <h2 class="floating">🚀 Ready for new interesting tasks :)</h2>
+                <div class="contact-links" style="justify-content: center;">
+                    <a href="https://github.com/KOTorCAT/projects" class="contact-btn" target="_blank">
+                        <i>👨‍💻</i> GitHub
+                    </a>
+                    <a href="https://t.me/man_who_eats_cake" class="contact-btn" target="_blank">
+                        <i>📨</i> Telegram
+                    </a>
+                    <a href="mailto:mikhail.b.smirnov@gmail.com" class="contact-btn">
+                        <i>✉️</i> Email
+                    </a>
+                </div>
+                <p style="margin-top: 30px; color: var(--secondary;">This website was completely created by me 👉👈</p>
             </div>
         </div>
     </div>
@@ -891,6 +1177,27 @@
                     const x = (window.innerWidth - e.pageX * speed) / 100;
                     const y = (window.innerHeight - e.pageY * speed) / 100;
                     particle.style.transform = `translate(${x}px, ${y}px)`;
+                });
+            });
+            
+            const languageButtons = document.querySelectorAll('.language-btn');
+            const ruElements = document.querySelectorAll('.lang-ru');
+            const enElements = document.querySelectorAll('.lang-en');
+            
+            languageButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const lang = button.getAttribute('data-lang');
+                    
+                    languageButtons.forEach(btn => btn.classList.remove('active'));
+                    button.classList.add('active');
+                    
+                    if (lang === 'ru') {
+                        ruElements.forEach(el => el.style.display = 'block');
+                        enElements.forEach(el => el.style.display = 'none');
+                    } else if (lang === 'en') {
+                        ruElements.forEach(el => el.style.display = 'none');
+                        enElements.forEach(el => el.style.display = 'block');
+                    }
                 });
             });
         });
